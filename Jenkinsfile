@@ -19,11 +19,11 @@ pipeline{
             steps{
             gitCheckout(
                 branch: "main",
-                url: "https://github.com/vikash-kumar01/mrdevops_java_app.git"
+                url: "https://github.com/Nearme88/java_app.git"
             )
             }
         }
-         stage('Unit Test maven'){
+        stage('Unit Test maven'){
          
          when { expression {  params.action == 'create' } }
 
@@ -34,7 +34,7 @@ pipeline{
                }
             }
         }
-         stage('Integration Test maven'){
+        stage('Integration Test maven'){
          when { expression {  params.action == 'create' } }
             steps{
                script{
@@ -81,7 +81,7 @@ pipeline{
                }
             }
         }
-         stage('Docker Image Scan: trivy '){
+        stage('Docker Image Scan: trivy '){
          when { expression {  params.action == 'create' } }
             steps{
                script{
