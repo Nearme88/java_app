@@ -31,15 +31,14 @@ pipeline{
                }
             }
         }
-        // stage('Integration Test maven'){
-        //     when { expression {  params.action == 'create' } }
-        //     steps{
-        //        script{
-                   
-        //            mvnIntegrationTest()
-        //        }
-        //     }
-        // }
+        stage('Integration Test maven'){
+            when { expression {  params.action == 'create' } }
+            steps{
+               script{    
+                   mvnIntegrationTest()
+               }
+            }
+        }
         // stage('Static code analysis: Sonarqube'){
         //     when { expression {  params.action == 'create' } }
         //     steps{
