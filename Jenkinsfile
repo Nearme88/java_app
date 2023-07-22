@@ -39,21 +39,21 @@ pipeline{
                }
             }
         }
-        // stage('Static code analysis: SonarCloud'){
-        //     when { expression {  params.action == 'create' } }
-        //     steps{
-        //        script{
-        //            def SonarQubecredentialsId = 'sonar-api'
-        //            statiCodeAnalysis(SonarQubecredentialsId)
-        //        }
-        //     }
-        // }
-        // stage('Quality Gate Status Check : SonarCloud'){
+        stage('Static code analysis: Sonarqube'){
+            when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   def SonarQubecredentialsId = 'sonar-api'
+                   statiCodeAnalysis(SonarQubecredentialsId)
+               }
+            }
+        }
+        // stage('Quality Gate Status Check : Sonarqube'){
         //     when { expression {  params.action == 'create' } }
         //     steps{
         //        script{
                    
-        //            def SonarQubecredentialsId = 'sonar-api'
+        //            def SonarQubecredentialsId = 'sonarqube-api'
         //            QualityGateStatus(SonarQubecredentialsId)
         //        }
         //     }
@@ -66,14 +66,15 @@ pipeline{
                }
             }
         }
-        stage('Docker Image Build'){
-            when { expression {  params.action == 'create' } }
-            steps{
-               script{  
-                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
-               }
-            }
-        }
+        // stage('Docker Image Build'){
+        //     when { expression {  params.action == 'create' } }
+        //     steps{
+        //        script{
+                   
+        //            dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+        //        }
+        //     }
+        // }
         // stage('Docker Image Scan: trivy '){
         //     when { expression {  params.action == 'create' } }
         //     steps{
