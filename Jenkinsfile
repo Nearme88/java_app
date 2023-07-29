@@ -66,20 +66,17 @@ pipeline{
                }
             }
         }
-        // stage('Docker Image Build'){
-        //     when { expression {  params.action == 'create' } }
-        //     steps{
-        //        script{   
-        //            dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
-        //        }
-        //     }
-        // }
 
-        //Build the container and tag it with abuild tag of the job
-        // stage ('Docker Image Build') {
-        //     sh 'sudo docker build -t ${params.DockerHubUser}/${params.ImageName}:${params.ImageTag} . '
-        // }
-        
+        // Build the container and tag it with abuild tag of the job
+        stage('Docker Image Build'){
+            when { expression {  params.action == 'create' } }
+            steps{
+               script{   
+                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+               }
+            }
+        }
+
         // stage('Docker Image Scan: trivy '){
         //     when { expression {  params.action == 'create' } }
         //     steps{
