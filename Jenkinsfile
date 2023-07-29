@@ -66,19 +66,22 @@ pipeline{
                }
             }
         }
-        stage('Docker Image Build'){
-            when { expression {  params.action == 'create' } }
-            steps{
-               script{   
-                   dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
-               }
-            }
+        // stage('Docker Image Build'){
+        //     when { expression {  params.action == 'create' } }
+        //     steps{
+        //        script{   
+        //            dockerBuild("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+        //        }
+        //     }
+        // }
+        //Build the container and tag it with abuild tag of the job
+        stage ('Docker Image Build') {
+            sh 'sudo docker build -t ${params.DockerHubUser}/${params.ImageName}:${params.ImageTag} . '
         }
         // stage('Docker Image Scan: trivy '){
         //     when { expression {  params.action == 'create' } }
         //     steps{
         //        script{
-                   
         //            dockerImageScan("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
         //        }
         //     }
@@ -91,12 +94,24 @@ pipeline{
         //            dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
         //        }
         //     }
-        // }   
+        // } 
+
+        //Set dockerhub credentials and use them to push to dockerhub
+        // stage ('Image Push to Dockerhub') {
+        //     withCredentials([[$class: 'UsernamePasswordMultiBinding',
+        //     // set the dockerhub credentials
+        //     credentialsId: 'dockerhub',
+        //     passwordVariable: 'DOCKER_PASSWORD',
+        //     usernameVariable: 'DOCKER_USERNAME']]) {
+        //         sh '''sudo docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} -e isackaranja@gmail.com
+        //                 sudo docker push mugithi/blog:${BUILD_TAG}'''
+        //             }
+        // }
+
         // stage('Docker Image Cleanup : DockerHub '){
         //     when { expression {  params.action == 'create' } }
         //     steps{
-        //        script{
-                   
+        //        script{             
         //            dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
         //        }
         //     }
