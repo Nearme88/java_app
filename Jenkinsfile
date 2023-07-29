@@ -74,10 +74,12 @@ pipeline{
         //        }
         //     }
         // }
+
         //Build the container and tag it with abuild tag of the job
-        stage ('Docker Image Build') {
-            sh 'sudo docker build -t ${params.DockerHubUser}/${params.ImageName}:${params.ImageTag} . '
-        }
+        // stage ('Docker Image Build') {
+        //     sh 'sudo docker build -t ${params.DockerHubUser}/${params.ImageName}:${params.ImageTag} . '
+        // }
+        
         // stage('Docker Image Scan: trivy '){
         //     when { expression {  params.action == 'create' } }
         //     steps{
