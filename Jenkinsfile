@@ -85,24 +85,23 @@ pipeline{
                }
             }
         }
-        // stage('Docker Image Push : DockerHub '){
-        //     when { expression {  params.action == 'create' } }
-        //     steps{
-        //        script{
-                   
-        //            dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
-        //        }
-        //     }
-        // } 
+        stage('Docker Image Push : DockerHub '){
+            when { expression {  params.action == 'create' } }
+            steps{
+               script{         
+                   dockerImagePush("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+               }
+            }
+        } 
 
-        //Set dockerhub credentials and use them to push to dockerhub
+        // Set dockerhub credentials and use them to push to dockerhub
         // stage ('Image Push to Dockerhub') {
         //     withCredentials([[$class: 'UsernamePasswordMultiBinding',
         //     // set the dockerhub credentials
-        //     credentialsId: 'dockerhub',
-        //     passwordVariable: 'DOCKER_PASSWORD',
-        //     usernameVariable: 'DOCKER_USERNAME']]) {
-        //         sh '''sudo docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} -e isackaranja@gmail.com
+        //     credentialsId: 'docker',
+        //     passwordVariable: 'Omerta@1988',
+        //     usernameVariable: 'vsnondoh']]) {
+        //         sh '''sudo docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} -e noelnondoh@gmail.com
         //                 sudo docker push mugithi/blog:${BUILD_TAG}'''
         //             }
         // }
